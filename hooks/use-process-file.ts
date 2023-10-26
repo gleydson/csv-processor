@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const one_mb = 1024 * 1024
 
@@ -43,29 +43,34 @@ async function splitFile(file: File, chunkSize: number) {
 
 export function useProcessFile() {
   const [isProcessing, setIsProcessing] = useState(false)
-  const [isWorkerReady, setIsWorkerReady] = useState(false)
+  // const [isWorkerReady, setIsWorkerReady] = useState(false)
+  const processChunksWorkerRef = useRef<Worker | null>(null)
 
-  const processChunks = useMemo<Worker | null>(
-    () => {
-      if (!isWorkerReady) return null
-      return new Worker(new URL('../workers/process-chunks.ts', import.meta.url), { type: 'module' })
-    },
-    [isWorkerReady]
-  )
+  // const processChunks = useMemo<Worker | null>(
+  //   () => {
+  //     if (!isWorkerReady) return null
+  //     return new Worker(new URL('../workers/process-chunks.ts', import.meta.url), { type: 'module' })
+  //   },
+  //   [isWorkerReady]
+  // )
 
   useEffect(() => {
-    if (window.Worker) {
-      setIsWorkerReady(true)
+    if (window.Worker && "serviceWorker" in window.navigator) {
+      processChunksWorkerRef.current = new Worker(new URL('../workers/process-chunks.ts', import.meta.url), { type: 'module' })
+    }
+
+    return () => {
+      processChunksWorkerRef.current?.terminate()
     }
   }, [])
 
   const onProcess = useCallback(async (file: File) => {
     const chunkSize = one_mb
     const { header, chunks } = await splitFile(file, chunkSize)
-    if (processChunks != null) {
-      processChunks.postMessage({ header, chunks })
+    if (processChunksWorkerRef.current != null) {
+      processChunksWorkerRef.current.postMessage({ header, chunks })
     }
-  }, [processChunks])
+  }, [processChunksWorkerRef])
 
   return { onProcess, processing: isProcessing }
 }

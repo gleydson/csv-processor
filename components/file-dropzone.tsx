@@ -2,7 +2,7 @@
 
 import { Plus, Spinner } from '@/components/ui/icons';
 import { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone-esm';
 import { Card, CardContent } from "./ui/card";
 
 function parseBytesIntoMBAndGB(bytes: number) {
