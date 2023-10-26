@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 
 const converter = (header: string, content: string) => Papa.parse(`${header}\n${content}`, { header: true, dynamicTyping: true })
 
-function paseCsvToJSON(header: string) {
+function parseCsvToJSON(header: string) {
   let csvBuffer = ''
   return new TransformStream({
     transform(chunk, controller) {
@@ -34,7 +34,7 @@ async function processChunks(header: string, chunks: Blob[]) {
   for (const chunk of chunks) {
     chunk.stream()
     .pipeThrough(new TextDecoderStream())
-    .pipeThrough(paseCsvToJSON(header))
+    .pipeThrough(parseCsvToJSON(header))
       .pipeTo(new WritableStream({
         write(chunk) {
           console.log(++counter, chunk)
