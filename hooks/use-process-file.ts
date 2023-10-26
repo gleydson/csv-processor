@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const one_mb = 1024 * 1024

@@ -2,7 +2,7 @@ import { Card, CardContent } from "./ui/card";
 
 export function DataPreviewTable() {
   return (
-    <Card className="focus-visible:ring-ring ring-offset-background cursor-pointer flex flex-1 flex-col items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60 bg-gradient-to-r from-green-200 via-green-400 to-primary border-none rounded-lg p-[1px]">
+    <Card className="focus-visible:ring-ring ring-offset-background flex flex-1 flex-col items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60 bg-gradient-to-r from-green-200 via-green-400 to-primary border-none rounded-lg p-[1px]">
       <CardContent className="bg-card rounded-lg w-full p-4">
         {/* <Table>
           <TableCaption>A list of your recent invoices.</TableCaption>
