@@ -44,7 +44,5 @@ async function processChunks(header: string, chunks: Blob[]) {
 }
 
 self.onmessage = (event: MessageEvent<{ header: string, chunks: Blob[] }>) => {
-  // console.log('recebu', event.data)
   processChunks(event.data.header, event.data.chunks)
-  // self.postMessage('hey from worker')
 }
