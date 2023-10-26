@@ -45,9 +45,12 @@ export function useProcessFile() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [isWorkerReady, setIsWorkerReady] = useState(false)
 
-  const processChunks = useMemo<Worker>(
-    () => new Worker(new URL('../workers/process-chunks.ts', import.meta.url), { type: 'module' }),
-    []
+  const processChunks = useMemo<Worker | null>(
+    () => {
+      if (!isWorkerReady) return null
+      return new Worker(new URL('../workers/process-chunks.ts', import.meta.url), { type: 'module' })
+    },
+    [isWorkerReady]
   )
 
   useEffect(() => {
@@ -59,7 +62,9 @@ export function useProcessFile() {
   const onProcess = useCallback(async (file: File) => {
     const chunkSize = one_mb
     const { header, chunks } = await splitFile(file, chunkSize)
-    processChunks.postMessage({ header, chunks })
+    if (processChunks != null) {
+      processChunks.postMessage({ header, chunks })
+    }
   }, [processChunks])
 
   return { onProcess, processing: isProcessing }
