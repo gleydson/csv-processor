@@ -1,11 +1,10 @@
 import { Card, CardContent } from "./ui/card";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 
 export function DataPreviewTable() {
   return (
     <Card className="focus-visible:ring-ring ring-offset-background cursor-pointer flex flex-1 flex-col items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60 bg-gradient-to-r from-green-200 via-green-400 to-primary border-none rounded-lg p-[1px]">
       <CardContent className="bg-card rounded-lg w-full p-4">
-        <Table>
+        {/* <Table>
           <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader>
             <TableRow>
@@ -35,7 +34,12 @@ export function DataPreviewTable() {
               <TableCell className="text-right">$250.00</TableCell>
             </TableRow>
           </TableBody>
-        </Table>
+        </Table> */}
+
+        <div className="flex-1 flex flex-col justify-center items-center py-20">
+          <h3 className="text-muted-foreground text-4xl">Preview data</h3>
+          <p className="text-muted-foreground/60 text-lg">For now, see the console when you drop your csv file above</p>
+        </div>
       </CardContent>
     </Card>
   )
