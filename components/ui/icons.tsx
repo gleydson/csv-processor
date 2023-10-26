@@ -1,3 +1,3 @@
 'use client'
 
-export { Plus } from '@phosphor-icons/react'
+export { Plus, Spinner } from '@phosphor-icons/react'
