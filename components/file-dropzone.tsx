@@ -14,9 +14,10 @@ type FileDropzoneProps = {
   disabled?: boolean
   onDrop?: (_file: File) => void | Promise<void>
   loading?: boolean
+  processedLines: number
 }
 
-export function FileDropzone({ disabled = false, loading = false, onDrop }: FileDropzoneProps) {
+export function FileDropzone({ disabled = false, loading = false, onDrop, processedLines }: FileDropzoneProps) {
   const [fileName, setFileName] = useState('')
   const [fileSize, setFileSize] = useState('0MB')
   
@@ -77,7 +78,7 @@ export function FileDropzone({ disabled = false, loading = false, onDrop }: File
 
         {fileName && !loading ? (
           <p className="group-hover:text-foreground text-muted-foreground mt-8 font-medium">
-            {`${fileName} - ${fileSize}`}
+            {`${fileName} - ${fileSize} - ${processedLines} linhas processadas`}
           </p>
         ) : null}
 

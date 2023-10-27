@@ -6,12 +6,12 @@ import { GithubLink } from "@/components/github-link";
 import { useProcessFile } from "@/hooks/use-process-file";
 
 export default function Home() {
-  const { onProcess, processing } = useProcessFile()
+  const { onProcess, processing, data } = useProcessFile()
   
   return (
     <main className="max-h-screen h-full overflow-hidden relative">
       <div className="h-full p-10 space-y-32">
-        <FileDropzone onDrop={onProcess} loading={processing} />
+        <FileDropzone onDrop={onProcess} loading={processing} processedLines={data} />
         <DataPreviewTable />
       </div>
       <GithubLink />

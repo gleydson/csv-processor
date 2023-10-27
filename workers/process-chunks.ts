@@ -12,7 +12,7 @@ function parseCsvToJSON(header: string) {
       items.slice(0, -1).forEach(item => {
         const parsedCsv = converter(header, item)
         // if (parsedCsv.errors.length > 0) {
-        //   console.log(++counter, parsedCsv)
+        //   console.log(parsedCsv)
         // }
         if (parsedCsv.errors.length === 0) {
           controller.enqueue(parsedCsv.data[0])
@@ -35,11 +35,11 @@ async function processChunks(header: string, chunks: Blob[]) {
     chunk.stream()
     .pipeThrough(new TextDecoderStream())
     .pipeThrough(parseCsvToJSON(header))
-      .pipeTo(new WritableStream({
-        write(chunk) {
-          console.log(++counter, chunk)
-        }
-      }))
+    .pipeTo(new WritableStream({
+      write(chunk) {
+        self.postMessage(chunk) 
+      }
+    }))
   }
 }
 

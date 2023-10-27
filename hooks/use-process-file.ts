@@ -44,8 +44,8 @@ async function splitFile(file: File, chunkSize: number) {
 }
 
 export function useProcessFile() {
+  const [data, setData] = useState(0)
   const [isProcessing, setIsProcessing] = useState(false)
-  // const [isWorkerReady, setIsWorkerReady] = useState(false)
   const processChunksWorkerRef = useRef<Worker | null>(null)
 
   // const processChunks = useMemo<Worker | null>(
@@ -66,6 +66,15 @@ export function useProcessFile() {
     }
   }, [])
 
+  useEffect(() => {
+    if (processChunksWorkerRef.current != null) {
+      processChunksWorkerRef.current.onmessage = (event: MessageEvent<any>) => {
+        // console.log('chegou no hook', event.data)
+        setData(old => old + 1)
+      }
+    }
+  }, [])
+
   const onProcess = useCallback(async (file: File) => {
     const chunkSize = one_mb
     const { header, chunks } = await splitFile(file, chunkSize)
@@ -74,5 +83,5 @@ export function useProcessFile() {
     }
   }, [processChunksWorkerRef])
 
-  return { onProcess, processing: isProcessing }
+  return { onProcess, processing: isProcessing, data }
 }

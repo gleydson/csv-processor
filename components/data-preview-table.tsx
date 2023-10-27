@@ -38,7 +38,6 @@ export function DataPreviewTable() {
 
         <div className="flex-1 flex flex-col justify-center items-center py-20">
           <h3 className="text-muted-foreground text-4xl">Preview data</h3>
-          <p className="text-muted-foreground/60 text-lg">For now, see the console when you drop your csv file above</p>
         </div>
       </CardContent>
     </Card>
