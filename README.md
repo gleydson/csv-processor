@@ -1,7 +1,7 @@
 # File processor
 (under development)
 
-A simple example of a next js 13 application that processes massive data files using web streams and web workers
+A simple example of a Next.js application that processes massive data files using web streams and web workers
 
 👉[See now](https://csv-preprocessing.vercel.app/)👈
 
